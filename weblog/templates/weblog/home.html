@@ -1,11 +1,41 @@
+{% extends 'weblog/base.html' %}
+{% load static %}
+{% block main %}
 
-<center>
-    {% for article in articles %}
-    <article>
-        <img src="{{article.thumbnail.url}}", alt="{{article.title}}" width="300" height="200 ">
-        <h1><a href="{% url 'weblog:detail' article.slug %}">{{article.title}}</a></h1> 
-        <small>{{article.publish}}</small>
-        <p>{{article.desc}}</p>
-    </article>
-    {% endfor %}
-</center>
+<header class="masthead" style="background-image: url('{% static "weblog/assets/img/home-bg.jpg" %}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Django News</h1> 
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            {% for article in articles %}
+            <div class="post-preview">
+                <a href="{% url 'weblog:detail' article.slug %}">
+                    <h2 class="post-title">{{article.title}}</h2>
+                    <h3 class="post-subtitle">{{article.description | truncatewords:20}}</h3>
+                </a>
+                <p class="post-meta">
+                    نوشته شده توسط
+                    <a href="#!">سعید</a>
+                    {{article.jpublish}}
+                </p>
+            </div> 
+            {% endfor %}
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

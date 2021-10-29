@@ -12,13 +12,14 @@ admin.site.register(Category, CategoryAdmin)
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'publish','status','category_tostr')
+    list_display = ('title', 'slug', 'jpublish','status','category_tostr')
     list_filter = ('publish','status')
     search_fields = ('title','description')
     prepopulated_fields = {'slug':('title',)}
     ordering = ['status','publish']
 
-    def category_tostr(slef,obj):
-        return "Categoriesh"
+    def category_tostr(slef,obj): 
+        return ", ".join([Category.title for Category in obj.category.all()])
+    category_tostr.short_description="دسته بندی"
 
 admin.site.register(Article, ArticleAdmin) 

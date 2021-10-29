@@ -1,7 +1,28 @@
- 
-<article>
-    <img src="{{article.thumbnail.url}}", alt="{{article.title}}" width="300" height="200 ">
-    <h1>{{article.title}}</h1> 
-    <small>{{article.publish}}</small>
-    <p>{{article.desc}}</p>
-</article> 
+{% extends 'weblog/base.html' %}
+{% block title%} | {{article.title}}{% endblock %}
+{% load static %}
+{% block main %}
+
+<header class="masthead" style="background-image: url('{{article.thumbnail.url}}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>{{article.title}}</h1> 
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {{article.description | linebreaks}}
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}
