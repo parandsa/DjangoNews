@@ -45,6 +45,8 @@ class Article(models.Model):
     class Meta:
         verbose_name = "مقاله" 
         verbose_name_plural = "مقالات" 
+        ordering=['-publish']
+        
     jpublish.short_description = "زمان انتشار"
     
 
