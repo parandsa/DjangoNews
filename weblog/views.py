@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .models import Article, Category
 
@@ -17,6 +17,14 @@ def home(request):
  
 def detail(request, slug):
     context = {
-        "article":Article.objects.get(slug=slug)
+        "article":get_object_or_404(Article,slug=slug,status='p')
     }
-    return render(request, "weblog/detail.html", context)   
+    return render(request, "weblog/detail.html", context)  
+
+
+
+def category(reguest, slug):
+    context={
+        "category":get_object_or_404(Category,slug=slug,status=True)
+    }
+    return render(reguest, "weblog/category.html", context)

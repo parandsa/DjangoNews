@@ -19,7 +19,7 @@ class ArticleAdmin(admin.ModelAdmin):
     ordering = ['status','publish']
 
     def category_tostr(slef,obj): 
-        return ", ".join([Category.title for Category in obj.category.all()])
+        return ", ".join([Category.title for Category in obj.category_published()])
     category_tostr.short_description="دسته بندی"
 
 admin.site.register(Article, ArticleAdmin) 
