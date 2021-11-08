@@ -18,7 +18,7 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
-            {% for article in articles %}
+            {% for article in object_list %}
             <div class="post-preview">
                 <a href="{% url 'weblog:detail' article.slug %}">
                     <h2 class="post-title">{{article.title}}</h2>
@@ -39,18 +39,19 @@
             <!-- Divider-->
             <hr class="my-4" />
             <!-- Pager-->
+            {% if is_paginated %}
             <div class="clearfix page-botton">
                 
-                {% if articles.has_previous %}
-                     <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:home' articles.previous_page_number %}"> پست های جدید  &rarr;</a>
+                {% if page_obj.has_previous %}
+                     <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:home' page_obj.previous_page_number %}"> پست های جدید  &rarr;</a>
                 {% endif %}
 
                 
-                {% if articles.has_next %}
-                     <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:home' articles.next_page_number %}" > پست های قدیمی  &larr;</a>
+                {% if page_obj.has_next %}
+                     <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:home' page_obj.next_page_number %}" > پست های قدیمی  &larr;</a>
                 {% endif %}
             </div> 
-
+            {% endif %}
         </div>
     </div>
 </div>

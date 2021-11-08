@@ -19,7 +19,7 @@
         <div class="col-md-10 col-lg-8 col-xl-7">
             <h3 class="alert alert-primary text-center"> دسته بندی : {{category.title}}</h3>
             <!-- Post preview-->
-            {% for article in articles %}
+            {% for article in object_list %}
             <div class="post-preview">
                 <a href="{% url 'weblog:detail' article.slug %}">
                     <h2 class="post-title">{{article.title}}</h2>
@@ -32,7 +32,7 @@
                 </p>
                 <div>
                     {% for cat in article.category_published.all %}
-                        <a href="#">#{{cat.title}}</a>
+                        <a href="{% url 'weblog:category' cat.slug %}"">#{{cat.title}}</a>
                     {% endfor %}
                 </div>
             </div> 
@@ -42,14 +42,18 @@
             <!-- Pager-->
             
             <div class="clearfix page-botton">
-                
-                {% if articles.has_previous %}
-                     <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:category' articles.previous_page_number %}"> پست های جدید  &rarr;</a>
-                {% endif %}
-
-                
-                {% if articles.has_next %}
-                     <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:category' category.slug articles.next_page_number %}" > پست های قدیمی  &larr;</a>
+                {% if is_paginated %}
+                <div class="clearfix page-botton">
+                    
+                    {% if page_obj.has_previous %}
+                         <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:category' category.slugh page_obj.previous_page_number %}"> پست های جدید  &rarr;</a>
+                    {% endif %}
+    
+                    
+                    {% if page_obj.has_next %}
+                         <a class="btn btn-primary text-uppercase float-right " href="{% url 'weblog:category' category.slugh page_obj.next_page_number %}" > پست های قدیمی  &larr;</a>
+                    {% endif %}
+                </div> 
                 {% endif %}
             </div> 
 
